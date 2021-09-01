@@ -1,0 +1,27 @@
+version: "3.8"
+
+# automatically build ffmpeg
+# docker-compose up --build
+
+# build
+# docker-compose build
+
+# run
+# docker-compose run build-ffmpeg
+
+# terminate and clean
+# docker-compose down
+
+services:
+  build-ffmpeg:
+    container_name: ubuntu-ffmpeg
+    build: docker/
+    working_dir: /usr/src/ffmpeg
+    volumes:
+      - ./ffmpeg-4.4:/usr/src/ffmpeg
+      - ./build.sh:/usr/src/ffmpeg/build-script.sh
+      - ./out:/usr/build/ffmpeg
+    environment:
+      OUT_DIR: /usr/build/ffmpeg
+    command: ./build-script.sh
+
