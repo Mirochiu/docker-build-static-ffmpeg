@@ -5,7 +5,7 @@ echo "workdir:$(pwd) processors:$(nproc) outdir:${OUT_DIR}"
 echo "start to build zlib"
 cd /usr/src/dep/zlib-1.2.11
 pwd
-make clean
+make distclean
 ./configure --prefix=/usr --static && make -j$(nproc) && make install
 cd -
 
@@ -13,7 +13,6 @@ apt-get -y install \
   libfreetype6-dev \
   libvorbis-dev \
   libx264-dev \
-  libssl-dev \
   libvpx-dev \
   libmp3lame-dev \
   libopus-dev \
@@ -76,13 +75,54 @@ make distclean
 cd -
 
 echo "start to build libdav1d"
-cd /usr/src/dep/dav1d-0.9.1
+cd /usr/src/dep/dav1d-0.9.1 && rm -rf build
 pwd
-rm -rf build
 mkdir build
-meson build --prefix=/usr --buildtype release --default-library=static
-ninja -C build
-ninja -C build install
+meson build --prefix=/usr --buildtype release --default-library=static && ninja -C build && ninja -C build install
+cd -
+
+echo "start to build gmp"
+cd /usr/src/dep/gmp-6.2.1
+pwd
+make clean
+./configure --prefix=/usr --enable-static && make -j$(nproc) && make install
+cd -
+
+echo "start to build nettle"
+cd /usr/src/dep/nettle-3.4.1
+pwd
+make clean
+./configure --prefix=/usr --enable-static && make -j$(nproc) && make install
+cd -
+
+echo "start to build libtasn1"
+cd /usr/src/dep/libtasn1-4.9
+pwd
+make clean
+./configure --prefix=/usr --enable-static && make -j$(nproc) && make install
+cd -
+
+echo "start to build libunistring"
+cd /usr/src/dep/libunistring-0.9.10
+pwd
+make clean
+./configure --prefix=/usr --enable-static && make -j$(nproc) && make install
+cd -
+
+echo "start to build libffi"
+cd /usr/src/dep/libffi-3.0.9
+pwd
+make clean
+./configure --prefix=/usr --enable-static && make -j$(nproc) && make install
+cd -
+
+apt-get -y install gettext
+
+echo "start to build gnutls"
+cd /usr/src/dep/gnutls-3.6.16
+pwd
+make clean
+./configure --prefix=/usr --enable-static --without-p11-kit && make -j$(nproc) && make install
 cd -
 
 echo "start to build ffmpeg"
@@ -97,7 +137,7 @@ PKG_CONFIG_PATH="${OUT_DIR}/lib/pkgconfig" ./configure \
   --extra-ldexeflags="-static" \
   --ld="g++" \
   --enable-gpl \
-  --enable-openssl \
+  --enable-gnutls \
   --enable-libmp3lame \
   --enable-libopus \
   --enable-libvorbis \
@@ -124,6 +164,4 @@ make -j$(nproc) && make install
 
 # got error when configure
 # /usr/bin/ld: attempted static link of dynamic object `/usr/lib/x86_64-linux-gnu/libz.so'
-# --enable-gnutls \
 # --enable-librtmp \
-
