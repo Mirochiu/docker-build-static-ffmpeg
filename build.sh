@@ -13,7 +13,6 @@ apt-get -y install \
   libfreetype6-dev \
   libvorbis-dev \
   libx264-dev \
-  libvpx-dev \
   libmp3lame-dev \
   libopus-dev \
   icu-devtools \
@@ -123,6 +122,13 @@ cd /usr/src/dep/gnutls-3.6.16
 pwd
 make clean
 ./configure --prefix=/usr --enable-static --without-p11-kit && make -j$(nproc) && make install
+cd -
+
+echo "start to build libvpx"
+cd /usr/src/dep/libvpx-1.10.0
+pwd
+make clean
+./configure --prefix=/usr --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --enable-static && make -j$(nproc) && make install
 cd -
 
 echo "start to build ffmpeg"

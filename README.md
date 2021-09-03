@@ -26,6 +26,7 @@ wget -c https://gmplib.org/download/gmp/gmp-6.2.1.tar.lz -O - | tar --lzip -x
 wget -c http://ftp.gnu.org/gnu/libtasn1/libtasn1-4.9.tar.gz -O - | tar -xz
 wget -c https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz -O - | tar -xJ
 wget -c https://github.com/libffi/libffi/archive/refs/tags/v3.0.9.tar.gz -O - | tar -xz
+wget -c https://github.com/webmproject/libvpx/archive/refs/tags/v1.10.0.tar.gz -O - | tar -xz
 
 4. run docker-compose for build
 
