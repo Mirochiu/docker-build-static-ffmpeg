@@ -19,9 +19,11 @@ services:
     working_dir: /usr/src/ffmpeg
     volumes:
       - ./ffmpeg-4.4:/usr/src/ffmpeg
+      - ./dep:/usr/src/dep
       - ./build.sh:/usr/src/ffmpeg/build-script.sh
       - ./out:/usr/build/ffmpeg
     environment:
       OUT_DIR: /usr/build/ffmpeg
     command: ./build-script.sh
-
+    # stdin_open: true
+    # tty: true
