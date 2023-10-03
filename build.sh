@@ -1,7 +1,9 @@
 #!/bin/bash
 
 echo "workdir:$(pwd) processors:$(nproc) outdir:${OUT_DIR}"
-make distclean
+if [ -f Makefile ]; then
+  make distclean
+fi 
 PKG_CONFIG_PATH="${OUT_DIR}/lib/pkgconfig" ./configure \
   --prefix="${OUT_DIR}" \
   --pkg-config-flags="--static" \
