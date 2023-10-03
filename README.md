@@ -1,34 +1,42 @@
-This project is used to build a static version of ffmpeg by docker-compose
+# Build static ffmpeg with docker
 
-# How to use this project
+This project is used to build a static version of ffmpeg by docker compose
+
+## How to use this project
+
 1. enter this projet root directory
 
 2. download ffmpeg source code
 
-        wget -c https://ffmpeg.org/releases/ffmpeg-4.4.tar.gz -O - | tar -xz
+   `wget -c https://ffmpeg.org/releases/ffmpeg-4.4.4.tar.gz -O - | tar -xz`
 
-   or
+3. run docker compose for build
 
-        git clone --depth 1 -b release/4.4 --single-branch https://git.ffmpeg.org/ffmpeg.git ffmpeg-4.4
-
-3. run docker-compose for build
-
-        docker-compose up --build
+   `docker compose up --build`
 
 4. get the built files
 
-   out/bin/ffprobe
-   out/bin/ffmpeg
+   - `./ffmpeg-4.4.4/static-bins/bin/ffprobe`
+   - `./ffmpeg-4.4.4/static-bins/bin/ffmpeg`
 
-# Try your ffmpeg builts
+
+   ```text
+   ffmpeg version 4.4.4 Copyright (c) 2007-2023 the FFmpeg developers
+     built with gcc 5.4.0 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 20160609
+     configuration: --prefix=static-bins/ --pkg-config-flags=--static --extra-cflags=-Istatic-bins//include --extra-ldflags=-Lstatic-bins//lib --extra-libs='-lpthread -lm -lz' --extra-ldexeflags=-static --ld=g++ --enable-gpl --enable-openssl --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree --enable-libfreetype --disable-doc --disable-debug
+   ```
+
+## Try your ffmpeg builts
 
 1. ffprobe
 
-        ./out/bin/ffprobe -i file:///mnt/hdd2/content/clear.mp4
+        ./ffmpeg-4.4.4/static-bins/bin/ffprobe -i file:///mnt/hdd2/content/clear.mp4
 
 2. ffmpeg
 
-        ./out/bin/ffmpeg -i file:///mnt/hdd2/content/clear.mp4 convert.ts
+        ./ffmpeg-4.4.4/static-bins/bin/ffmpeg -i file:///mnt/hdd2/content/clear.mp4 convert.ts
 
-# Reference
-   https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+
+## Reference
+
+https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu

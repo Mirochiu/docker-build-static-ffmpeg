@@ -16,10 +16,11 @@ services:
   build-ffmpeg:
     container_name: ubuntu-ffmpeg
     build: docker/
-    user: ${UID}:${UID}
+    # change below if your id not 1000
+    user: 1000:1000
     working_dir: /usr/src/ffmpeg
     volumes:
-      - ./ffmpeg-4.4:/usr/src/ffmpeg
+      - ./ffmpeg-4.4.4:/usr/src/ffmpeg
       - ./build.sh:/usr/src/ffmpeg/build-script.sh
     environment:
       OUT_DIR: static-bins/
